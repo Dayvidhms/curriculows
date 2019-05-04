@@ -11,6 +11,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import model.UsuarioDAO;
 
@@ -45,6 +46,17 @@ public class UsuarioResource {
 
         UsuarioDAO dao = new UsuarioDAO();
         dao.insertUser(usuarioResultado);
+    }
+    
+    @GET
+    @Produces("application/json")
+    @Path("/login")
+    public String login(@QueryParam("user")String user, @QueryParam("senha")String senha){
+        UsuarioDAO dao = new UsuarioDAO();
+        Gson gson = new Gson();
+        return gson.toJson(dao.loginUser(user, senha));
+               
+          
     }
 
 }
